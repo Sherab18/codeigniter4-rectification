@@ -27,13 +27,17 @@
         flex-direction: column;
         align-items: center;
         height: 100%;
-        cursor: pointer;
         border-top: 5px solid #3498db;
+        text-decoration: none; /* Removed underline for link wrapper */
+        color: inherit;
     }
 
-    .resource-item:hover {
+    .resource-item:hover,
+    .resource-item:focus-visible {
         transform: translateY(-5px);
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
     }
 
     .resource-icon {
@@ -80,40 +84,40 @@
 
 <div class="professional-container">
     <div class="resource-grid">
-        <div class="resource-item" onclick="location.href='<?= base_url('publicdata/report_public') ?>'">
-            <div class="resource-icon"><i class="fas fa-chart-line"></i></div>
+        <a href="<?= base_url('publicdata/report_public') ?>" class="resource-item" aria-label="Reports: Daily and annual performance analytics. View reports">
+            <div class="resource-icon" aria-hidden="true"><i class="fas fa-chart-line"></i></div>
             <div class="resource-content">
                 <h3>Reports</h3>
                 <small>Daily and annual performance analytics.</small>
-                <div class="resource-action">View reports <i class="fas fa-arrow-right"></i></div>
+                <div class="resource-action">View reports <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
             </div>
-        </div>
+        </a>
 
-        <div class="resource-item" onclick="location.href='<?= base_url('home/documents') ?>'">
-            <div class="resource-icon"><i class="fas fa-file-contract"></i></div>
+        <a href="<?= base_url('home/documents') ?>" class="resource-item" aria-label="Documents: External guidelines and reference materials. Explore docs">
+            <div class="resource-icon" aria-hidden="true"><i class="fas fa-file-contract"></i></div>
             <div class="resource-content">
                 <h3>Documents</h3>
                 <small>External guidelines and reference materials.</small>
-                <div class="resource-action">Explore docs <i class="fas fa-arrow-right"></i></div>
+                <div class="resource-action">Explore docs <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
             </div>
-        </div>
+        </a>
 
-        <div class="resource-item" onclick="location.href='<?= base_url('home/internal_documents') ?>'">
-            <div class="resource-icon"><i class="fas fa-clipboard-list"></i></div>
+        <a href="<?= base_url('home/internal_documents') ?>" class="resource-item" aria-label="Forms: Internal templates and procedural documents. Access forms">
+            <div class="resource-icon" aria-hidden="true"><i class="fas fa-clipboard-list"></i></div>
             <div class="resource-content">
                 <h3>Forms</h3>
                 <small>Internal templates and procedural documents.</small>
-                <div class="resource-action">Access forms <i class="fas fa-arrow-right"></i></div>
+                <div class="resource-action">Access forms <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
             </div>
-        </div>
+        </a>
 
-        <div class="resource-item" onclick="location.href='<?= base_url('publicdata/cod_public') ?>'">
-            <div class="resource-icon"><i class="fas fa-industry"></i></div>
+        <a href="<?= base_url('publicdata/cod_public') ?>" class="resource-item" aria-label="Plant CODs: Official Commercial Operation Date certificates. Access CODs">
+            <div class="resource-icon" aria-hidden="true"><i class="fas fa-industry"></i></div>
             <div class="resource-content">
                 <h3>Plant CODs</h3>
                 <small>Official Commercial Operation Date certificates.</small>
-                <div class="resource-action">Access CODs <i class="fas fa-arrow-right"></i></div>
+                <div class="resource-action">Access CODs <i class="fas fa-arrow-right" aria-hidden="true"></i></div>
             </div>
-        </div>
+        </a>
     </div>
 </div>

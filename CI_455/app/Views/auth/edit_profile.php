@@ -46,40 +46,40 @@
                             ?>
                             <img src="<?= $avatarUrl ?>" alt="Profile Picture" width="100" height="100" class="rounded-circle border border-3 border-primary object-fit-cover shadow-sm mb-2">
                             <div>
-                                <label class="btn btn-sm btn-outline-primary mt-1">
+                                <label for="avatar_input" class="btn btn-sm btn-outline-primary mt-1">
                                     <i class="fas fa-camera me-1"></i> Change Photo
-                                    <input type="file" name="avatar" class="d-none" accept="image/*" onchange="this.form.submit()">
+                                    <input type="file" id="avatar_input" name="avatar" class="d-none" accept="image/*" onchange="this.form.submit()">
                                 </label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Given Name</label>
-                                <input type="text" name="given_name" class="form-control" value="<?= esc(old('given_name', $user['given_name'])) ?>" required>
+                                <label for="given_name" class="form-label">Given Name</label>
+                                <input type="text" id="given_name" name="given_name" class="form-control" value="<?= esc(old('given_name', $user['given_name'])) ?>" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" name="last_name" class="form-control" value="<?= esc(old('last_name', $user['last_name'])) ?>" required>
+                                <label for="last_name" class="form-label">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" class="form-control" value="<?= esc(old('last_name', $user['last_name'])) ?>" required>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Sex / Gender</label>
-                            <select name="sex" class="form-select" required>
+                            <label for="sex" class="form-label">Sex / Gender</label>
+                            <select id="sex" name="sex" class="form-select" required>
                                 <option value="Male" <?= (old('sex', $user['sex']) === 'Male') ? 'selected' : '' ?>>Male</option>
                                 <option value="Female" <?= (old('sex', $user['sex']) === 'Female') ? 'selected' : '' ?>>Female</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Mobile Number</label>
-                            <input type="text" name="mobile" class="form-control" value="<?= esc(old('mobile', $user['mobile'])) ?>" required>
+                            <label for="mobile" class="form-label">Mobile Number</label>
+                            <input type="text" id="mobile" name="mobile" class="form-control" value="<?= esc(old('mobile', $user['mobile'])) ?>" required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" name="email" class="form-control" value="<?= esc(old('email', $user['email'])) ?>" required>
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-control" value="<?= esc(old('email', $user['email'])) ?>" required>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">Save Changes</button>

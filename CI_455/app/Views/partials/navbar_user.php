@@ -37,9 +37,10 @@ if (!empty($userAvatar) && file_exists(FCPATH . 'assets/uploads/avatars/' . $use
 				<div class="collapse navbar-collapse justify-content-md-center mt-2 mt-lg-0" id="mainNavigation">
 					<ul class="navbar-nav nav-pills">
 
+						<!-- Uploads Dropdown -->
 						<li class="nav-item dropdown mx-1">
 							<a class="nav-link dropdown-toggle text-primary d-flex align-items-center py-2 px-3"
-								id="powerSystemDropdown"
+								id="uploadsDropdown"
 								href="#"
 								role="button"
 								data-bs-toggle="dropdown"
@@ -47,7 +48,7 @@ if (!empty($userAvatar) && file_exists(FCPATH . 'assets/uploads/avatars/' . $use
 								<i class="fas fa-folder-plus fa-fw me-2"></i>
 								<span>UPLOADs</span>
 							</a>
-							<ul class="dropdown-menu shadow border-0" aria-labelledby="powerSystemDropdown">
+							<ul class="dropdown-menu shadow border-0" aria-labelledby="uploadsDropdown">
 								<li>
 									<a class="dropdown-item d-flex align-items-center py-2"
 										href="<?= base_url() ?>bpso/news/">
@@ -92,6 +93,7 @@ if (!empty($userAvatar) && file_exists(FCPATH . 'assets/uploads/avatars/' . $use
 							</ul>
 						</li>
 
+						<!-- Power System Records Dropdown -->
 						<li class="nav-item dropdown mx-1">
 							<a class="nav-link dropdown-toggle text-primary d-flex align-items-center py-2 px-3"
 								id="powerSystemDropdown"
@@ -130,6 +132,7 @@ if (!empty($userAvatar) && file_exists(FCPATH . 'assets/uploads/avatars/' . $use
 							</ul>
 						</li>
 
+						<!-- Operator Records Dropdown -->
 						<li class="nav-item dropdown mx-1">
 							<a class="nav-link dropdown-toggle text-primary d-flex align-items-center py-2 px-3"
 								id="operatorRecordsDropdown"

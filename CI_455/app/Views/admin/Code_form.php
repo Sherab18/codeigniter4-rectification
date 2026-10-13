@@ -7,7 +7,11 @@
 <?= $this->section('title') ?><?= $title ?? 'Commercial Operation Date Documents' ?><?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Added integrity and crossorigin attributes for Subresource Integrity (SRI) security -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+      rel="stylesheet" 
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
+      crossorigin="anonymous">
 
 <div class="container py-4">
     <div class="row">
@@ -39,25 +43,29 @@
                     <h6 class="mb-0"><i class="fas fa-upload me-2"></i>Upload COD Document</h6>
                 </div>
                 <div class="card-body">
-                    <form action="<?= base_url('documents/upload') ?>" method="post" enctype="multipart/form-data">
+                    <form id="docUploadForm" action="<?= base_url('documents/upload') ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
+                        
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Generation Plant</label>
-                            <select name="station_id" class="form-select" required>
+                            <label for="station_id" class="form-label fw-bold">Generation Plant</label>
+                            <select id="station_id" name="station_id" class="form-select" required>
                                 <option value="">Select Plant...</option>
                                 <?php foreach ($stations as $s): ?>
                                     <option value="<?= $s['id'] ?>"><?= esc($s['station']) ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
+
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Unit Designation</label>
-                            <input type="text" name="unit_name" class="form-control" placeholder="e.g. Unit-I & II" required>
+                            <label for="unit_name" class="form-label fw-bold">Unit Designation</label>
+                            <input type="text" id="unit_name" name="unit_name" class="form-control" placeholder="e.g. Unit-I & II" required>
                         </div>
+
                         <div class="mb-3">
-                            <label class="form-label fw-bold">PDF File (Max 50MB)</label>
-                            <input type="file" name="plant_pdf" class="form-control" accept="application/pdf" required>
+                            <label for="plant_pdf" class="form-label fw-bold">PDF File (Max 50MB)</label>
+                            <input type="file" id="plant_pdf" name="plant_pdf" class="form-control" accept="application/pdf" required>
                         </div>
+
                         <div class="pt-2">
                             <button type="submit" class="btn btn-primary w-100 shadow-sm" id="uploadBtn">
                                 Upload Document
@@ -110,10 +118,12 @@
 
     </div>
 </div>
+
 <script>
-document.getElementById('uploadBtn').addEventListener('click', function() {
-    this.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Uploading...';
-    this.classList.add('disabled');
+document.getElementById('docUploadForm').addEventListener('submit', function() {
+    var btn = document.getElementById('uploadBtn');
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Uploading...';
+    btn.classList.add('disabled');
 });
 </script>
 

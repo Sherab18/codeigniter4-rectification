@@ -9,6 +9,13 @@ Organogram | Bhutan Power System Operator
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+<!-- Added Subresource Integrity (SRI) attributes for external CSS security -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+
 <main>
     <div class="container">
         <div class="row">
@@ -22,8 +29,8 @@ Organogram | Bhutan Power System Operator
                             <div class="d-flex flex-column align-items-center">
                                 <div class="org-node card bg-danger text-dark shadow-lg" style="max-width: 20rem;">
                                     <div class="card-body text-center">
-                                        <i class="material-icons md-36">groups</i>
-                                        <h5 class="mt-2 mb-0 text-dark">Governance Committee</h5>
+                                        <i class="material-icons md-36" aria-hidden="true">groups</i>
+                                        <h3 class="h5 mt-2 mb-0 text-dark">Governance Committee</h3>
                                     </div>
                                 </div>
                                 <div class="org-connector"></div>
@@ -34,8 +41,8 @@ Organogram | Bhutan Power System Operator
                             <div class="d-flex flex-column align-items-center">
                                 <div class="org-node card bg-info text-dark shadow-lg" style="max-width: 20rem;">
                                     <div class="card-body text-center">
-                                        <i class="material-icons md-36">person</i>
-                                        <h5 class="mt-2 mb-0 text-dark">Chief Executive Officer</h5>
+                                        <i class="material-icons md-36" aria-hidden="true">person</i>
+                                        <h3 class="h5 mt-2 mb-0 text-dark">Chief Executive Officer</h3>
                                     </div>
                                 </div>
                                 <div class="org-connector"></div>
@@ -46,8 +53,8 @@ Organogram | Bhutan Power System Operator
                             <div class="org-unit animate__animated animate__fadeInLeft">
                                 <div class="org-node card bg-success text-dark shadow-lg">
                                     <div class="card-body text-center">
-                                        <i class="material-icons md-36">engineering</i>
-                                        <h5 class="mt-2">Chief Engineer</h5>
+                                        <i class="material-icons md-36" aria-hidden="true">engineering</i>
+                                        <h3 class="h5 mt-2">Chief Engineer</h3>
                                         <p class="mb-0">Power System Operator Division (PSOD)</p>
                                     </div>
                                 </div>
@@ -60,7 +67,7 @@ Organogram | Bhutan Power System Operator
                                     </div>
                                     <div class="org-subunit animate__animated animate__fadeInUp animate__delay-2s">
                                         <div class="card shadow-sm">
-                                            <div class="card-body" style="background-color: #CBC1AE;" >System Operation Unit (SO)</div>
+                                            <div class="card-body" style="background-color: #CBC1AE;">System Operation Unit (SO)</div>
                                         </div>
                                     </div>
                                     <div class="org-subunit animate__animated animate__fadeInUp animate__delay-3s">
@@ -74,8 +81,8 @@ Organogram | Bhutan Power System Operator
                             <div class="org-unit animate__animated animate__fadeInUp">
                                 <div class="org-node card bg-success text-dark shadow-lg">
                                     <div class="card-body text-center">
-                                        <i class="material-icons md-36">engineering</i>
-                                        <h5 class="mt-2">Chief Engineer</h5>
+                                        <i class="material-icons md-36" aria-hidden="true">engineering</i>
+                                        <h3 class="h5 mt-2">Chief Engineer</h3>
                                         <p class="mb-0">Engineering & Communication Division (E&CD)</p>
                                     </div>
                                 </div>
@@ -102,8 +109,8 @@ Organogram | Bhutan Power System Operator
                             <div class="org-unit animate__animated animate__fadeInRight" style="margin-top: 30px;">
                                 <div class="org-node card shadow-lg" style="background-color: #CBC1AE;">
                                     <div class="card-body text-center">
-                                        <i class="material-icons md-36">person</i>
-                                        <h5 class="mt-2">Manager</h5>
+                                        <i class="material-icons md-36" aria-hidden="true">person</i>
+                                        <h3 class="h5 mt-2">Manager</h3>
                                         <p class="mb-0">Support Service Unit</p>
                                     </div>
                                 </div>
@@ -233,9 +240,8 @@ Organogram | Bhutan Power System Operator
     }
 </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 <script>
-    $(document).ready(function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {

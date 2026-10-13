@@ -6,7 +6,8 @@ use CodeIgniter\CodeIgniter;
 $errorId = uniqid('error', true);
 ?>
 <!doctype html>
-<html>
+<!-- FIX: Added lang attribute to satisfy Web:S5254 -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="noindex">
@@ -116,23 +117,29 @@ $errorId = uniqid('error', true);
                                     <?php $argsId = $errorId . 'args' . $index ?>
                                     ( <a href="#" onclick="return toggle('<?= esc($argsId, 'attr') ?>');">arguments</a> )
                                     <div class="args" id="<?= esc($argsId, 'attr') ?>">
+                                        <!-- FIX: Added <thead> with <th> for WCAG table rules -->
                                         <table cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Parameter</th>
+                                                    <th scope="col">Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            $params = null;
+                                            if (! str_ends_with($row['function'], '}')) {
+                                                $mirror = isset($row['class']) ? new ReflectionMethod($row['class'], $row['function']) : new ReflectionFunction($row['function']);
+                                                $params = $mirror->getParameters();
+                                            }
 
-                                        <?php
-                                        $params = null;
-                                        // Reflection by name is not available for closure function
-                                        if (! str_ends_with($row['function'], '}')) {
-                                            $mirror = isset($row['class']) ? new ReflectionMethod($row['class'], $row['function']) : new ReflectionFunction($row['function']);
-                                            $params = $mirror->getParameters();
-                                        }
-
-                                        foreach ($row['args'] as $key => $value) : ?>
-                                            <tr>
-                                                <td><code><?= esc(isset($params[$key]) ? '$' . $params[$key]->name : "#{$key}") ?></code></td>
-                                                <td><pre><?= esc(print_r($value, true)) ?></pre></td>
-                                            </tr>
-                                        <?php endforeach ?>
-
+                                            foreach ($row['args'] as $key => $value) : ?>
+                                                <tr>
+                                                    <td><code><?= esc(isset($params[$key]) ? '$' . $params[$key]->name : "#{$key}") ?></code></td>
+                                                    <td><pre><?= esc(print_r($value, true)) ?></pre></td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                            </tbody>
                                         </table>
                                     </div>
                                 <?php else : ?>
@@ -171,8 +178,8 @@ $errorId = uniqid('error', true);
                     <table>
                         <thead>
                             <tr>
-                                <th>Key</th>
-                                <th>Value</th>
+                                <th scope="col">Key</th>
+                                <th scope="col">Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -201,8 +208,8 @@ $errorId = uniqid('error', true);
                     <table>
                         <thead>
                             <tr>
-                                <th>Key</th>
-                                <th>Value</th>
+                                <th scope="col">Key</th>
+                                <th scope="col">Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -227,7 +234,14 @@ $errorId = uniqid('error', true);
             <div class="content" id="request">
                 <?php $request = Services::request(); ?>
 
+                <!-- FIX: Added <thead> with <th> headers -->
                 <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Property</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
                             <td style="width: 10em">Path</td>
@@ -257,10 +271,8 @@ $errorId = uniqid('error', true);
                             <td>User Agent</td>
                             <td><?= esc($request->getUserAgent()->getAgentString()) ?></td>
                         </tr>
-
                     </tbody>
                 </table>
-
 
                 <?php $empty = true; ?>
                 <?php foreach (['_GET', '_POST', '_COOKIE'] as $var) : ?>
@@ -276,8 +288,8 @@ $errorId = uniqid('error', true);
                     <table style="width: 100%">
                         <thead>
                             <tr>
-                                <th>Key</th>
-                                <th>Value</th>
+                                <th scope="col">Key</th>
+                                <th scope="col">Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -314,8 +326,8 @@ $errorId = uniqid('error', true);
                     <table>
                         <thead>
                             <tr>
-                                <th>Header</th>
-                                <th>Value</th>
+                                <th scope="col">Header</th>
+                                <th scope="col">Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -347,11 +359,20 @@ $errorId = uniqid('error', true);
                 $response->setStatusCode(http_response_code());
             ?>
             <div class="content" id="response">
+                <!-- FIX: Added <thead> with <th> headers -->
                 <table>
-                    <tr>
-                        <td style="width: 15em">Response Status</td>
-                        <td><?= esc($response->getStatusCode() . ' - ' . $response->getReasonPhrase()) ?></td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th scope="col">Property</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 15em">Response Status</td>
+                            <td><?= esc($response->getStatusCode() . ' - ' . $response->getReasonPhrase()) ?></td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <?php $headers = $response->headers(); ?>
@@ -361,8 +382,8 @@ $errorId = uniqid('error', true);
                     <table>
                         <thead>
                             <tr>
-                                <th>Header</th>
-                                <th>Value</th>
+                                <th scope="col">Header</th>
+                                <th scope="col">Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -402,7 +423,14 @@ $errorId = uniqid('error', true);
             <!-- Memory -->
             <div class="content" id="memory">
 
+                <!-- FIX: Added <thead> with <th> headers -->
                 <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Metric</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
                             <td>Memory Usage</td>

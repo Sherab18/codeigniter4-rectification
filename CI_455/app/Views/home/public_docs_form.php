@@ -1,13 +1,17 @@
 <?= $this->extend('layouts/layouts_user') ?>
 
 <?= $this->section('navbar') ?>
-    <?= $this->include('partials/navbar_user') ?>
+<?= $this->include('partials/navbar_user') ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('title') ?><?= $title ?? 'Public Documents Management' ?><?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Added integrity and crossorigin attributes for Subresource Integrity (SRI) security -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous">
 
 <div class="container py-4">
     <?php if (session()->getFlashdata('errors')): ?>
@@ -37,15 +41,15 @@
                 <div class="card-body">
                     <form action="<?= base_url('public-docs/upload') ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
-                        
+
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Document Title</label>
-                            <input type="text" name="title" class="form-control" placeholder="e.g., Grid Code 2026" required>
+                            <label for="doc_title" class="form-label fw-bold">Document Title</label>
+                            <input type="text" id="doc_title" name="title" class="form-control" placeholder="e.g., Grid Code 2026" required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Category</label>
-                            <select name="category" class="form-select" required>
+                            <label for="doc_category" class="form-label fw-bold">Category</label>
+                            <select id="doc_category" name="category" class="form-select" required>
                                 <option value="General">General</option>
                                 <option value="Grid Code">Grid Code</option>
                                 <option value="Annual Report">Annual Report</option>
@@ -54,13 +58,13 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Short Description</label>
-                            <textarea name="description" class="form-control" rows="2" placeholder="Brief details about the file..."></textarea>
+                            <label for="doc_description" class="form-label fw-bold">Short Description</label>
+                            <textarea id="doc_description" name="description" class="form-control" rows="2" placeholder="Brief details about the file..."></textarea>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Select PDF (Max 50MB)</label>
-                            <input type="file" name="public_file" class="form-control" accept="application/pdf" required>
+                            <label for="public_file" class="form-label fw-bold">Select PDF (Max 50MB)</label>
+                            <input type="file" id="public_file" name="public_file" class="form-control" accept="application/pdf" required>
                         </div>
 
                         <button type="submit" class="btn btn-success w-100">
@@ -80,30 +84,32 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>Title & Category</th>
-                                <th>Description</th>
-                                <th>Date Published</th>
-                                <th class="text-end">Action</th>
+                                <th scope="col">Title & Category</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Date Published</th>
+                                <th scope="col" class="text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($public_documents)): ?>
                                 <?php foreach ($public_documents as $doc): ?>
-                                <tr>
-                                    <td>
-                                        <div class="fw-bold"><?= esc($doc['title']) ?></div>
-                                        <span class="badge bg-secondary opacity-75" style="font-size: 0.7rem;">
-                                            <?= esc($doc['category']) ?>
-                                        </span>
-                                    </td>
-                                    <td><small class="text-muted"><?= esc($doc['description']) ?></small></td>
-                                    <td><?= date('d M Y', strtotime($doc['created_at'])) ?></td>
-                                    <td class="text-end">
-                                        <a href="<?= base_url('public-docs/download/'.$doc['id']) ?>" class="btn btn-sm btn-outline-success">
-                                            <i class="fas fa-download"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold"><?= esc($doc['title']) ?></div>
+                                            <span class="badge bg-secondary opacity-75" style="font-size: 0.7rem;">
+                                                <?= esc($doc['category']) ?>
+                                            </span>
+                                        </td>
+                                        <td><small class="text-muted"><?= esc($doc['description']) ?></small></td>
+                                        <td><?= date('d M Y', strtotime($doc['created_at'])) ?></td>
+                                        <td class="text-end">
+                                            <a href="<?= base_url('public-docs/download/' . $doc['id']) ?>"
+                                                class="btn btn-sm btn-outline-success"
+                                                aria-label="Download <?= esc($doc['title']) ?>">
+                                                <i class="fas fa-download" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>

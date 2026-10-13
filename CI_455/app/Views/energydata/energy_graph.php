@@ -21,12 +21,13 @@ Energy Data | Bhutan Power System Operator
 					<div class="card-header text-center bg-info">
 						<div class="row">
 							<div class="col-12 col-md-9 text-md-start text-center">
-								<label class="form-label" id="chart_title">Energy Data</label>
+								<!-- FIX: Changed <label> to <span> to prevent orphaned label rule violation -->
+								<span class="h5 mb-0 fw-bold" id="chart_title">Energy Data</span>
 								<input type="hidden" id="d_type" value="generation_mwh">
 							</div>
 							<div class="col-12 col-md-3">
 								<div class="input-group mb-2">
-									<span class="input-group-text">Year</span>
+									<label for="r_year" class="input-group-text">Year</label>
 									<select class="form-select" id="r_year" onchange="updateMonthOptions()">
 										<option value="2026" selected>2026</option>
 										<option value="2025">2025</option>
@@ -35,8 +36,8 @@ Energy Data | Bhutan Power System Operator
 									</select>
 								</div>
 								<div class="input-group mb-2">
-									<span class="input-group-text">Month</span>
-									<select class="form-select" id="r_month">
+									<label for="r_month" class="input-group-text">Month</label>
+									<select class="form-select" id="r_month" onchange="get_data()">
 									</select>
 								</div>
 							</div>
@@ -52,7 +53,8 @@ Energy Data | Bhutan Power System Operator
 	</div>
 </main><br>
 
-<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"
+	crossorigin="anonymous"></script>
 <script>
 	google.charts.load('current', {
 		'packages': ['corechart']
@@ -65,7 +67,7 @@ Energy Data | Bhutan Power System Operator
 		var selectedYear = yearSelect.value;
 		monthSelect.innerHTML = "";
 
-		if (selectedYear === "2026") {
+		if (selectedYear === "2026" || selectedYear === "2025" || selectedYear === "2024") {
 			addOption(monthSelect, "01", "January");
 			addOption(monthSelect, "02", "February");
 			addOption(monthSelect, "03", "March");
@@ -78,34 +80,7 @@ Energy Data | Bhutan Power System Operator
 			addOption(monthSelect, "10", "October");
 			addOption(monthSelect, "11", "November");
 			addOption(monthSelect, "12", "December");
-		} else if (selectedYear === "2025") {
-			addOption(monthSelect, "01", "January");
-			addOption(monthSelect, "02", "February");
-			addOption(monthSelect, "03", "March");
-			addOption(monthSelect, "04", "April");
-			addOption(monthSelect, "05", "May");
-			addOption(monthSelect, "06", "June");
-			addOption(monthSelect, "07", "July");
-			addOption(monthSelect, "08", "August");
-			addOption(monthSelect, "09", "September");
-			addOption(monthSelect, "10", "October");
-			addOption(monthSelect, "11", "November");
-			addOption(monthSelect, "12", "December");
-		} else if (selectedYear === "2024") {
-			addOption(monthSelect, "01", "January");
-			addOption(monthSelect, "02", "February");
-			addOption(monthSelect, "03", "March");
-			addOption(monthSelect, "04", "April");
-			addOption(monthSelect, "05", "May");
-			addOption(monthSelect, "06", "June");
-			addOption(monthSelect, "07", "July");
-			addOption(monthSelect, "08", "August");
-			addOption(monthSelect, "09", "September");
-			addOption(monthSelect, "10", "October");
-			addOption(monthSelect, "11", "November");
-			addOption(monthSelect, "12", "December");
-		}
-		else if (selectedYear === "2023") {
+		} else if (selectedYear === "2023") {
 			addOption(monthSelect, "04", "April");
 			addOption(monthSelect, "05", "May");
 			addOption(monthSelect, "06", "June");

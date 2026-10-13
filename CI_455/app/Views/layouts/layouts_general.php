@@ -9,28 +9,56 @@
     <meta name="author" content="Bhutan Power System Operator">
     <title><?= $this->renderSection('title') ?></title>
 
-    <link rel="icon" href="<?= base_url() ?>/assets/img/bpso_logo.png" sizes="32x32">
+    <link rel="icon" href="<?= base_url('assets/img/bpso_logo.png') ?>" sizes="32x32">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+          crossorigin="anonymous">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" 
+          rel="stylesheet"
+          crossorigin="anonymous">
+
+    <!-- Bootstrap Icons 1.10.5 -->
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+          integrity="sha384-yB2CbdA8P/GneUjE76aX4B304/Lp4e5K4N1Z7mU/XW8n7E6fQ1B" 
+          crossorigin="anonymous">
+
+    <!-- DataTables 2.2.1 CSS -->
+    <link rel="stylesheet" 
+          href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.min.css"
+          integrity="sha384-934X1pU0G+O13jH89Y9e4q21O/U8I3c" 
+          crossorigin="anonymous">
+
+    <!-- FontAwesome 6.4.0 -->
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+          crossorigin="anonymous" 
+          referrerpolicy="no-referrer">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- jQuery 3.7.1 -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
 
+    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
 
-    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.min.js"></script>
-
+    <!-- DataTables 2.2.1 JS -->
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.min.js"
+            integrity="sha384-297u41N103P/K9U/jZ8c+8S6b0A" 
+            crossorigin="anonymous"></script>
 
     <style>
         :root {
@@ -109,8 +137,8 @@
                         </div>
                         <div class="card-body p-0">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17097.917722060833!2d89.62898612022404!3d27.428251880615115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e1930028378699%3A0xfbc08e28bfd8355c!2sBhutan%20Power%20System%20Operator!5e1!3m2!1sen!2sbt!4v1773029977688!5m2!1sen!2sbt
-"
+                                title="Bhutan Power System Operator Location Map"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17097.917722060833!2d89.62898612022404!3d27.428251880615115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e1930028378699%3A0xfbc08e28bfd8355c!2sBhutan%20Power%20System%20Operator!5e1!3m2!1sen!2sbt!4v1773029977688!5m2!1sen!2sbt"
                                 width="100%"
                                 height="300"
                                 style="border:0;"
@@ -129,19 +157,19 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center">
-                                <i class="bi bi-geo-alt-fill contact-icon"></i>
+                                <i class="bi bi-geo-alt-fill contact-icon" aria-hidden="true"></i>
                                 <div>Wangchu Taba Junction, Babesa, Thimphu, Bhutan.</div>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <i class="bi bi-telephone-fill contact-icon"></i>
+                                <i class="bi bi-telephone-fill contact-icon" aria-hidden="true"></i>
                                 <div>+975-02335631 (Control Room)<br>+975-02335632 (Office)</div>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <i class="bi bi-phone-fill contact-icon"></i>
+                                <i class="bi bi-phone-fill contact-icon" aria-hidden="true"></i>
                                 <div>+975 17129094<br>+975 77119094 (Control Room)</div>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <i class="bi bi-envelope-fill contact-icon"></i>
+                                <i class="bi bi-envelope-fill contact-icon" aria-hidden="true"></i>
                                 <div>controlroom@bpso.bt<br>office@bpso.bt</div>
                             </li>
                         </ul>
@@ -154,32 +182,32 @@
                             <strong>Useful Links</strong>
                         </div>
                         <div class="list-group list-group-flush">
-                            <a href="https://www.bpc.bt/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank">
-                                <i class="bi bi-link-45deg me-2"></i>
+                            <a href="https://www.bpc.bt/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-link-45deg me-2" aria-hidden="true"></i>
                                 Bhutan Power Corporation Limited
                             </a>
-                            <a href="https://www.drukgreen.bt/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank">
-                                <i class="bi bi-link-45deg me-2"></i>
+                            <a href="https://www.drukgreen.bt/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-link-45deg me-2" aria-hidden="true"></i>
                                 Druk Green Power Corporation Limited
                             </a>
-                            <a href="https://www.moenr.gov.bt/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank">
-                                <i class="bi bi-link-45deg me-2"></i>
+                            <a href="https://www.moenr.gov.bt/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-link-45deg me-2" aria-hidden="true"></i>
                                 Ministry of Energy and Natural Resources
                             </a>
-                            <a href="https://era.gov.bt/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank">
-                                <i class="bi bi-link-45deg me-2"></i>
+                            <a href="https://era.gov.bt/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-link-45deg me-2" aria-hidden="true"></i>
                                 Electricity Regulatory Authority
                             </a>
-                            <a href="https://posoco.in/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank">
-                                <i class="bi bi-link-45deg me-2"></i>
+                            <a href="https://posoco.in/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-link-45deg me-2" aria-hidden="true"></i>
                                 Grid Controller of India Limited
                             </a>
-                            <a href="https://erpc.gov.in/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank">
-                                <i class="bi bi-link-45deg me-2"></i>
+                            <a href="https://erpc.gov.in/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-link-45deg me-2" aria-hidden="true"></i>
                                 Eastern Regional Power Committee
                             </a>
-                            <a href="https://www.iexindia.com/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank">
-                                <i class="bi bi-link-45deg me-2"></i>
+                            <a href="https://www.iexindia.com/" class="list-group-item list-group-item-action d-flex align-items-center" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-link-45deg me-2" aria-hidden="true"></i>
                                 Indian Energy Exchange Limited
                             </a>
                         </div>
@@ -194,8 +222,6 @@
             </div>
         </div>
     </footer>
-
-
 </body>
 
 </html>

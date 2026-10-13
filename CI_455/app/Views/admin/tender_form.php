@@ -4,23 +4,23 @@
 <?= $this->include('partials/navbar_user') ?>
 <?= $this->endSection() ?>
 
-<?= $this->section('title') ?><?= $title ?? 'Tender Form' ?><?= $this->endSection() ?>
+<?= $this->section('title') ?><?= esc($title ?? 'Tender Form') ?><?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 <main>
     <div class="container">
         <div class="row">
             <div class="container-fluid px-4">
-                <h1 class="mt-4"><?= $title ?></h1>
+                <h1 class="mt-4"><?= esc($title) ?></h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="<?= base_url('admin/tenders') ?>">Tenders</a></li>
-                    <li class="breadcrumb-item active"><?= $title ?></li>
+                    <li class="breadcrumb-item active"><?= esc($title) ?></li>
                 </ol>
 
                 <?php if (session('errors')): ?>
                     <div class="alert alert-danger">
                         <?php foreach (session('errors') as $error): ?>
-                            <p><?= $error ?></p>
+                            <p class="mb-1"><?= esc($error) ?></p>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
@@ -28,45 +28,44 @@
                 <form action="<?= base_url('admin/tenders/save') ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field() ?>
                     <?php if (isset($tender['id'])): ?>
-                        <input type="hidden" name="id" value="<?= $tender['id'] ?>">
+                        <input type="hidden" name="id" value="<?= esc($tender['id']) ?>">
                     <?php endif; ?>
 
                     <div class="card mb-4">
                         <div class="card-header">
-                            <i class="fas fa-info-circle me-1"></i>
+                            <i class="fas fa-info-circle me-1" aria-hidden="true"></i>
                             Tender Information
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label">Title *</label>
-                                <input type="text" class="form-control" name="title"
-                                    value="<?= old('title', $tender['title'] ?? '') ?>" required>
+                                <label for="title" class="form-label">Title *</label>
+                                <input type="text" id="title" class="form-control" name="title"
+                                    value="<?= esc(old('title', $tender['title'] ?? '')) ?>" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Reference *</label>
-                                <input type="text" class="form-control" name="reference"
-                                    value="<?= old('reference', $tender['reference'] ?? '') ?>" required>
+                                <label for="reference" class="form-label">Reference *</label>
+                                <input type="text" id="reference" class="form-control" name="reference"
+                                    value="<?= esc(old('reference', $tender['reference'] ?? '')) ?>" required>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Content *</label>
-                                <textarea class="form-control" name="content" rows="6" required><?=
-                                                                                                old('content', $tender['content'] ?? '') ?></textarea>
-                                <small class="text">HTML content is allowed</small>
+                                <label for="content" class="form-label">Content *</label>
+                                <textarea id="content" class="form-control" name="content" rows="6" required><?= esc(old('content', $tender['content'] ?? '')) ?></textarea>
+                                <small class="text-muted">HTML content is allowed</small>
                             </div>
                         </div>
                     </div>
 
                     <div class="card mb-4">
                         <div class="card-header">
-                            <i class="fas fa-file me-1"></i>
+                            <i class="fas fa-file me-1" aria-hidden="true"></i>
                             Tender Documents
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label">Upload Files</label>
-                                <input class="form-control" type="file" name="files[]" multiple>
+                                <label for="tender_files" class="form-label">Upload Files</label>
+                                <input id="tender_files" class="form-control" type="file" name="files[]" multiple>
                                 <small class="form-text">Allowed: PDF, DOC, DOCX, XLS, XLSX, ZIP (Max 10MB each)</small>
                             </div>
 
@@ -77,11 +76,15 @@
                                         <?php foreach ($tender['files'] as $file): ?>
                                             <div class="list-group-item d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <i class="bi <?= getFileIcon($file['path']) ?> me-2"></i>
+                                                    <i class="bi <?= esc(getFileIcon($file['path'])) ?> me-2" aria-hidden="true"></i>
                                                     <?= esc($file['name']) ?>
                                                 </div>
-                                                <a href="<?= base_url($file['path']) ?>" target="_blank" class="btn btn-sm btn-outline-primary">
-                                                    <i class="fas fa-download"></i>
+                                                <a href="<?= base_url($file['path']) ?>"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    class="btn btn-sm btn-outline-primary"
+                                                    aria-label="Download <?= esc($file['name']) ?>">
+                                                    <i class="fas fa-download" aria-hidden="true"></i>
                                                 </a>
                                             </div>
                                         <?php endforeach; ?>
@@ -99,25 +102,25 @@
 
                     <div class="card mb-4">
                         <div class="card-header">
-                            <i class="fas fa-user me-1"></i>
+                            <i class="fas fa-user me-1" aria-hidden="true"></i>
                             Contact Information
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">Contact Name</label>
-                                    <input type="text" class="form-control" name="contact_name"
-                                        value="<?= old('contact_name', $tender['contact_name'] ?? '') ?>">
+                                    <label for="contact_name" class="form-label">Contact Name</label>
+                                    <input type="text" id="contact_name" class="form-control" name="contact_name"
+                                        value="<?= esc(old('contact_name', $tender['contact_name'] ?? '')) ?>">
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">Contact Phone</label>
-                                    <input type="text" class="form-control" name="contact_phone"
-                                        value="<?= old('contact_phone', $tender['contact_phone'] ?? '') ?>">
+                                    <label for="contact_phone" class="form-label">Contact Phone</label>
+                                    <input type="text" id="contact_phone" class="form-control" name="contact_phone"
+                                        value="<?= esc(old('contact_phone', $tender['contact_phone'] ?? '')) ?>">
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">Contact Email</label>
-                                    <input type="email" class="form-control" name="contact_email"
-                                        value="<?= old('contact_email', $tender['contact_email'] ?? '') ?>">
+                                    <label for="contact_email" class="form-label">Contact Email</label>
+                                    <input type="email" id="contact_email" class="form-control" name="contact_email"
+                                        value="<?= esc(old('contact_email', $tender['contact_email'] ?? '')) ?>">
                                 </div>
                             </div>
                         </div>
@@ -125,10 +128,10 @@
 
                     <div class="d-flex justify-content-between">
                         <a href="<?= base_url('admin/tenders') ?>" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Cancel
+                            <i class="fas fa-arrow-left me-1" aria-hidden="true"></i> Cancel
                         </a>
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Save Tender
+                            <i class="fas fa-save me-1" aria-hidden="true"></i> Save Tender
                         </button>
                     </div>
                 </form>

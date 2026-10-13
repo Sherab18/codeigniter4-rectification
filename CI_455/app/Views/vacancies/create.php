@@ -9,15 +9,15 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="h3 mb-0 text-primary"><i class="bi bi-briefcase me-2"></i>Create New Vacancy</h2>
+                <h2 class="h3 mb-0 text-primary"><i class="bi bi-briefcase me-2" aria-hidden="true"></i>Create New Vacancy</h2>
                 <a href="<?= site_url('career/vacancies') ?>" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left me-1"></i> Back to List
+                    <i class="bi bi-arrow-left me-1" aria-hidden="true"></i> Back to List
                 </a>
             </div>
 
             <?php if (session()->getFlashdata('errors')): ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <h5 class="alert-heading"><i class="bi bi-exclamation-triangle me-2"></i>Validation Errors</h5>
+                    <h5 class="alert-heading"><i class="bi bi-exclamation-triangle me-2" aria-hidden="true"></i>Validation Errors</h5>
                     <ul class="mb-0">
                         <?php foreach (session()->getFlashdata('errors') as $error): ?>
                             <li><?= esc($error) ?></li>
@@ -77,14 +77,14 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">Job Description PDF (Optional)</label>
-                            <div class="file-upload-area border rounded p-4 text-center" id="drop-zone">
+                            <label for="attachment" class="form-label fw-semibold">Job Description PDF (Optional)</label>
+                            <div class="file-upload-area border rounded p-4 text-center" id="drop-zone" role="button" tabindex="0" aria-label="Upload job description PDF file. Drag and drop file here or press enter to browse">
                                 <input type="file" class="form-control d-none" id="attachment" name="attachment" accept="application/pdf">
                                 <div class="mb-2">
-                                    <i class="bi bi-cloud-upload display-4 text-muted"></i>
+                                    <i class="bi bi-cloud-upload display-4 text-muted" aria-hidden="true"></i>
                                 </div>
                                 <p class="mb-2">Drag & drop your file here or</p>
-                                <label for="attachment" class="btn btn-outline-primary">Browse Files</label>
+                                <span class="btn btn-outline-primary">Browse Files</span>
                                 <div class="form-text mt-2">Max file size: 5MB (PDF only)</div>
                                 <div id="file-name" class="mt-2 fw-semibold text-success"></div>
                             </div>
@@ -93,7 +93,7 @@
                         <div class="d-flex gap-2 justify-content-end pt-3">
                             <a href="<?= site_url('career/vacancies') ?>" class="btn btn-lg btn-outline-secondary">Cancel</a>
                             <button type="submit" class="btn btn-lg btn-primary">
-                                <i class="bi bi-plus-circle me-2"></i> Create Vacancy
+                                <i class="bi bi-plus-circle me-2" aria-hidden="true"></i> Create Vacancy
                             </button>
                         </div>
                     </form>
@@ -111,9 +111,11 @@
     }
 
     .file-upload-area:hover,
+    .file-upload-area:focus-visible,
     .file-upload-area.drag-over {
         border-color: #0d6efd;
         background-color: #f8f9fa;
+        outline: none;
     }
 
     .card {
@@ -133,12 +135,25 @@
         const fileNameDisp = document.getElementById('file-name');
         const dropZone = document.getElementById('drop-zone');
 
-        // Handle Browse button
+        // Trigger file input click when drop zone is clicked
+        dropZone.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        // Enable keyboard activation for drop zone
+        dropZone.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
+
+        // Handle File Selection
         fileInput.addEventListener('change', function() {
             if (this.files.length) fileNameDisp.textContent = this.files[0].name;
         });
 
-        // Drag and Drop
+        // Drag and Drop Effects
         ['dragenter', 'dragover'].forEach(eventName => {
             dropZone.addEventListener(eventName, e => {
                 e.preventDefault();

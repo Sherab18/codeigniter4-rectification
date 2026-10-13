@@ -16,10 +16,11 @@ class BhutanController extends Controller
 
     public function __construct()
     {
-        $this->baseUrl  = getenv('WBES_BASE_URL') ?: 'https://gateway.grid-india.in/POSOCO/'; 
-        $this->apiKey   = getenv('WBES_API_KEY') ?: '9708bed8-f1a1-4c3b-bc68-3ef3456327ab'; 
-        $this->username = getenv('WBES_USERNAME') ?: 'usr_bhutan_api';                   
-        $this->password = getenv('WBES_PASSWORD') ?: 'WbesInte@170325';
+        // Load configurations securely from environment variables (.env)
+        $this->baseUrl  = getenv('WBES_BASE_URL') ?: 'https://gateway.grid-india.in/POSOCO/';
+        $this->apiKey   = getenv('WBES_API_KEY') ?: '';
+        $this->username = getenv('WBES_USERNAME') ?: '';
+        $this->password = getenv('WBES_PASSWORD') ?: '';
     }
 
     public function dashboard()
@@ -59,11 +60,12 @@ class BhutanController extends Controller
         ]);
     }
 
-
     private function getUtilityApiData($utility, $date = null)
     {
         $date = $date ?: date('Y-m-d');
-        $cacheKey = "wbes_schedule_" . md5(($utility ?? 'ALL') . '_' . $date);
+
+        // FIX (SonarQube php:S4790): Replaced weak md5 hash algorithm with secure sha256
+        $cacheKey = "wbes_schedule_" . hash('sha256', ($utility ?? 'ALL') . '_' . $date);
 
         if ($cachedData = cache($cacheKey)) {
             return $cachedData;
@@ -101,19 +103,19 @@ class BhutanController extends Controller
             CURLOPT_TIMEOUT        => 30,
             CURLOPT_CONNECTTIMEOUT => 15,
 
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => 0,
+            // Enforce secure SSL verification
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_SSLVERSION     => CURL_SSLVERSION_TLSv1_2,
 
-            CURLOPT_SSL_CIPHER_LIST => 'DEFAULT@SECLEVEL=1',
-
-            CURLOPT_USERAGENT      => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            CURLOPT_USERAGENT      => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) CodeIgniter-App',
 
             CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
             CURLOPT_IPRESOLVE      => CURL_IPRESOLVE_V4,
             CURLOPT_FRESH_CONNECT  => true,
             CURLOPT_FORBID_REUSE   => true
         ]);
+
         $respBody   = curl_exec($ch);
         $curlErrNo  = curl_errno($ch);
         $curlError  = curl_error($ch);

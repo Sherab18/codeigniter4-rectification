@@ -9,7 +9,12 @@ Documents | Bhutan Power System Operator
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<!-- Added integrity, crossorigin, and referrerpolicy attributes for Subresource Integrity (SRI) security -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
 
 <style>
     .parallelogram-container {
@@ -72,6 +77,10 @@ Documents | Bhutan Power System Operator
 
     .animate-delay-8 {
         animation-delay: 1.6s;
+    }
+
+    .animate-delay-9 {
+        animation-delay: 1.8s;
     }
 
     .btn-outline-primary {
@@ -147,11 +156,16 @@ Documents | Bhutan Power System Operator
                     ?>
                         <div class="col-md-4 mb-4">
                             <div class="card h-100 hover-effect animate__animated animate__fadeInUp <?= $delayClass ?>">
-                                <div class="card-body text-center">
-                                    <i class="bi <?= $document['icon'] ?> display-4 text-primary mb-3"></i>
-                                    <h5 class="card-title"><?= $document['title'] ?></h5>
-                                    <a class="btn btn-outline-primary mt-3" href="<?= esc(base_url() . '/uploads/documents/' . $document['file']) ?>" role="button" target="_blank" rel="noopener noreferrer">
-                                        <i class="bi bi-download"></i> Download
+                                <div class="card-body text-center d-flex flex-column align-items-center">
+                                    <i class="bi <?= esc($document['icon']) ?> display-4 text-primary mb-3" aria-hidden="true"></i>
+                                    <h5 class="card-title mb-3"><?= esc($document['title']) ?></h5>
+                                    <a class="btn btn-outline-primary mt-auto"
+                                        href="<?= esc(base_url('uploads/documents/' . $document['file'])) ?>"
+                                        role="button"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Download <?= esc($document['title']) ?>">
+                                        <i class="bi bi-download me-1" aria-hidden="true"></i> Download
                                     </a>
                                 </div>
                             </div>

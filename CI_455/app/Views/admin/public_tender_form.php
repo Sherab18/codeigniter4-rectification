@@ -17,15 +17,15 @@ $currentPage = max(1, min($currentPage, $totalPages));
 
 $canonicalUrl = $currentPage > 1 ? $baseUrl . '?page=' . $currentPage : $baseUrl;
 ?>
-<link rel="canonical" href="<?= $canonicalUrl ?>" />
+<link rel="canonical" href="<?= esc($canonicalUrl) ?>" />
 
 <?php if ($totalPages > 1) : ?>
     <?php if ($currentPage > 1) : ?>
-        <link rel="prev" href="<?= $baseUrl ?>?page=<?= $currentPage - 1 ?>" />
+        <link rel="prev" href="<?= esc($baseUrl . '?page=' . ($currentPage - 1)) ?>" />
     <?php endif; ?>
 
     <?php if ($currentPage < $totalPages) : ?>
-        <link rel="next" href="<?= $baseUrl ?>?page=<?= $currentPage + 1 ?>" />
+        <link rel="next" href="<?= esc($baseUrl . '?page=' . ($currentPage + 1)) ?>" />
     <?php endif; ?>
 <?php endif; ?>
 <?= $this->endSection() ?>
@@ -33,7 +33,7 @@ $canonicalUrl = $currentPage > 1 ? $baseUrl . '?page=' . $currentPage : $baseUrl
 <?= $this->section('content') ?>
 <?php
 $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$itemsPerPage = 3; 
+$itemsPerPage = 3;
 $totalItems = count($tenders);
 $totalPages = ceil($totalItems / $itemsPerPage);
 $currentPage = max(1, min($currentPage, $totalPages));
@@ -48,8 +48,8 @@ $paginatedTenders = array_slice($tenders, $offset, $itemsPerPage);
         </div>
 
         <?php if (session()->getFlashdata('success')) : ?>
-            <div class="alert alert-success alert-dismissible fade show mb-4">
-                <?= session()->getFlashdata('success') ?>
+            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                <?= esc(session()->getFlashdata('success')) ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php endif; ?>
@@ -57,7 +57,7 @@ $paginatedTenders = array_slice($tenders, $offset, $itemsPerPage);
         <?php if (empty($tenders)) : ?>
             <div class="card border-0 shadow-sm">
                 <div class="card-body text-center py-5">
-                    <i class="bi bi-folder-x display-1 text-muted mb-4"></i>
+                    <i class="bi bi-folder-x display-1 text-muted mb-4" aria-hidden="true"></i>
                     <h3 class="mb-3">No Tenders Available</h3>
                     <p class="text-muted mb-0">There are currently no tender documents to display.</p>
                 </div>
@@ -74,21 +74,21 @@ $paginatedTenders = array_slice($tenders, $offset, $itemsPerPage);
 
                             <div class="card-body position-relative pb-1">
                                 <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-calendar me-2 text-muted"></i>
-                                    <small class="text-muted"><?= date('M d, Y', strtotime($tender['created_at'])) ?></small>
+                                    <i class="bi bi-calendar me-2 text-muted" aria-hidden="true"></i>
+                                    <small class="text-muted"><?= esc(date('M d, Y', strtotime($tender['created_at']))) ?></small>
                                 </div>
 
                                 <div class="tender-info mb-4">
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="bi bi-person-circle me-2 text-primary"></i>
+                                        <i class="bi bi-person-circle me-2 text-primary" aria-hidden="true"></i>
                                         <span><?= esc($tender['contact_name']) ?></span>
                                     </div>
                                     <div class="d-flex align-items-center mb-2">
-                                        <i class="bi bi-envelope me-2 text-primary"></i>
+                                        <i class="bi bi-envelope me-2 text-primary" aria-hidden="true"></i>
                                         <span><?= esc($tender['contact_email']) ?></span>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <i class="bi bi-telephone me-2 text-primary"></i>
+                                        <i class="bi bi-telephone me-2 text-primary" aria-hidden="true"></i>
                                         <span><?= esc($tender['contact_phone']) ?></span>
                                     </div>
                                 </div>
@@ -107,12 +107,13 @@ $paginatedTenders = array_slice($tenders, $offset, $itemsPerPage);
                                                 <?php foreach ($tender['files'] as $index => $file) : ?>
                                                     <a href="<?= site_url('publicdata/download/file/' . $tender['id'] . '/' . $index) ?>"
                                                         download="<?= esc($file['name']) ?>"
-                                                        class="btn btn-sm btn-outline-primary d-flex align-items-center text-start">
-                                                        <i class="bi bi-file-earmark me-2"></i>
+                                                        class="btn btn-sm btn-outline-primary d-flex align-items-center text-start"
+                                                        aria-label="Download attachment <?= esc($file['name']) ?>">
+                                                        <i class="bi bi-file-earmark me-2" aria-hidden="true"></i>
                                                         <span class="text-truncate flex-grow-1">
                                                             <?= esc($file['name']) ?>
                                                         </span>
-                                                        <i class="bi bi-download ms-2"></i>
+                                                        <i class="bi bi-download ms-2" aria-hidden="true"></i>
                                                     </a>
                                                 <?php endforeach; ?>
                                             </div>
@@ -128,7 +129,7 @@ $paginatedTenders = array_slice($tenders, $offset, $itemsPerPage);
                             <div class="card-footer bg-white border-0 pt-0 pb-4">
                                 <a href="<?= site_url('publicdata/show/' . $tender['id']) ?>"
                                     class="btn btn-primary w-100 d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-eye me-2"></i> View Full Details
+                                    <i class="bi bi-eye me-2" aria-hidden="true"></i> View Full Details
                                 </a>
                             </div>
                         </div>
@@ -142,15 +143,15 @@ $paginatedTenders = array_slice($tenders, $offset, $itemsPerPage);
                         <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
                             <a class="page-link"
                                 href="?page=<?= $currentPage - 1 ?>"
-                                aria-label="Previous"
+                                aria-label="Previous Page"
                                 <?= $currentPage <= 1 ? 'tabindex="-1" aria-disabled="true"' : '' ?>>
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
 
                         <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                            <li class="page-item <?= $i === $currentPage ? 'active' : '' ?>">
-                                <a class="page-link" href="?page=<?= $i ?>">
+                            <li class="page-item <?= $i === $currentPage ? 'active' : '' ?>" <?= $i === $currentPage ? 'aria-current="page"' : '' ?>>
+                                <a class="page-link" href="?page=<?= $i ?>" aria-label="Go to Page <?= $i ?>">
                                     <?= $i ?>
                                 </a>
                             </li>
@@ -159,7 +160,7 @@ $paginatedTenders = array_slice($tenders, $offset, $itemsPerPage);
                         <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
                             <a class="page-link"
                                 href="?page=<?= $currentPage + 1 ?>"
-                                aria-label="Next"
+                                aria-label="Next Page"
                                 <?= $currentPage >= $totalPages ? 'tabindex="-1" aria-disabled="true"' : '' ?>>
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
@@ -173,7 +174,11 @@ $paginatedTenders = array_slice($tenders, $offset, $itemsPerPage);
 <?= $this->endSection() ?>
 
 <?php $this->section('styles'); ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<!-- Added integrity and crossorigin attributes for SRI security -->
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    integrity="sha384-V4CF23IpxO2pXmD4M3Lg6vB/B5Q2e1kZ01p/9Y+yVv4B5N0e6Q8+xS/B2x8x"
+    crossorigin="anonymous">
 <style>
     .card {
         transition: all 0.3s ease;
