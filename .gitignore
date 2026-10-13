@@ -1,0 +1,11 @@
+/vendor/
+/writable/
+**/writable/
+**/cache/
+**/logs/
+/.scannerwork/
+/.sonar/
+*.zip
+*.tar.gz
+*.log
+.env
